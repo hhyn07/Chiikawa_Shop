@@ -1,0 +1,1 @@
+<h1>product <?php echo $params[0]; ?></h1>
