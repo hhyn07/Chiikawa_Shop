@@ -1,3 +1,57 @@
+<?php
+$root = "/Chiikawa_Shop/";
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+if (!str_starts_with($request, $root)) {
+  http_response_code(404);
+  echo '<h1>404 - 頁面不存在</h1>';
+  exit;
+}
+$relativePath = trim(substr($request, strlen($root)), '/');
+
+// 定義路由表（支援正則表達式）和標題
+$routes = [
+  '' => [
+    'file' => 'pages/home.php',
+    'title' => 'Chiikawa Shop｜Home'
+  ],
+  'login' => [
+    'file' => 'pages/login.php',
+    'title' => 'Chiikawa Shop｜Login'
+  ],
+  'product/list' => [
+    'file' => 'pages/product_list.php',
+    'title' => 'Chiikawa Shop｜Product List'
+  ],
+  'product/view/(\d+)' => [
+    'file' => 'pages/product_view.php',
+    'title' => 'Chiikawa Shop｜Product Details'
+  ],
+
+  '404' => [
+    'file' => 'pages/404.php',
+    'title' => 'Chiikawa Shop｜404 - 頁面不存在'
+  ],
+];
+
+// 路由匹配函式（支援正則）
+function matchRoute($relativePath, $routes)
+{
+  foreach ($routes as $pattern => $route) {
+    if (preg_match("#^$pattern$#", $relativePath, $matches)) {
+      return [
+        'file' => $route['file'],
+        'title' => $route['title'],
+        'params' => array_slice($matches, 1)
+      ];
+    }
+  }
+  return $routes['404'];
+}
+
+// 執行路由匹配
+$navbar = 'components/navbar.php';
+$footer = 'components/footer.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,75 +64,19 @@
 </head>
 
 <body>
+  <?php include $navbar; ?>
+
   <main>
     <?php
-    $root = "/Chiikawa_Shop/";
-    $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    if (!str_starts_with($request, $root)) {
-      http_response_code(404);
-      echo '<h1>404 - 頁面不存在</h1>';
-      exit;
-    }
-    $relativePath = trim(substr($request, strlen($root)), '/');
-
-    // 定義路由表（支援正則表達式）和標題
-    $routes = [
-      '' => [
-        'file' => 'pages/home.php',
-        'title' => 'Chiikawa Shop｜Home'
-      ],
-      'login' => [
-        'file' => 'pages/login.php',
-        'title' => 'Chiikawa Shop｜Login'
-      ],
-      'product/list' => [
-        'file' => 'pages/product_list.php',
-        'title' => 'Chiikawa Shop｜Product List'
-      ],
-      'product/view/(\d+)' => [
-        'file' => 'pages/product_view.php',
-        'title' => 'Chiikawa Shop｜Product Details'
-      ],
-    ];
-
-    // 路由匹配函式（支援正則）
-    function matchRoute($relativePath, $routes)
-    {
-      foreach ($routes as $pattern => $route) {
-        if (preg_match("#^$pattern$#", $relativePath, $matches)) {
-          return [
-            'file' => $route['file'],
-            'title' => $route['title'],
-            'params' => array_slice($matches, 1)
-          ];
-        }
-      }
-      return null;
-    }
-
-    // 執行路由匹配
-    $routeMatch = matchRoute($relativePath, $routes);
-
-    if ($routeMatch) {
-      // 設定動態標題
-      $title = $routeMatch['title'];
-
-      // 顯示頁面
-      include 'components/navbar.php';
-      // 提取動態參數
+      $routeMatch = matchRoute($relativePath, $routes);
       $params = $routeMatch['params'];
       include $routeMatch['file'];
-      include 'components/footer.php';
-    } else {
-      // 404
-      http_response_code(404);
-      $title = '404 - 頁面不存在';
-      include 'components/navbar.php';
-      echo '<h1>404 - 頁面不存在</h1>';
-      include 'components/footer.php';
-    }
+      $title = $routeMatch['title'];
     ?>
   </main>
+
+  <?php include $footer; ?>
+
   <script>
     let title = "<?php echo addslashes($title); ?>";
     document.title = title;
