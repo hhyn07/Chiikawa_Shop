@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>PHP login System</title>
+  <title>PHP signup System</title>
   <style>
     * {
       font-family: 微軟正黑體;
@@ -21,22 +21,21 @@
       color: black;
     }
 
-
     #name,
     #password,
+    #phone,
     #h1 {
       width: 200px;
       height: 20px;
-      color: #df5334;
+      color: #black;
       top: 50px;
     }
 
-    /*白色外框*/
-    #frm {
+    #frm2 {
       margin: 50px;
       padding: 10px;
       width: 230px;
-      height: 300px;
+      height: 350px;
       background-color: white;
       border-radius: 5px;
       border-top: 10px solid #a3a2a3;
@@ -45,11 +44,9 @@
       /*定位對齊*/
       position: relative;
       margin: auto;
-      top: 100px;
+      top: 50px;
       text-align: center;
     }
-
-
 
     #btn {
       background: #cbd5e1;
@@ -104,7 +101,7 @@
   $servername = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "mydb";
+  $dbname = "chiikawashop";
 
   // 建立資料庫連線
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -113,13 +110,13 @@
   }
 
   // 定義變數
-  $nameErr = $passwordErr = "";
-  $name = $password = "";
+  $nameErr = $passwordErr = $phoneErr = "";
+  $name = $password = $phone = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid = true;
 
-    // 驗證姓名
+    // 檢查 name 欄位
     if (empty($_POST["name"])) {
       $nameErr = "Name is required";
       $valid = false;
@@ -131,7 +128,7 @@
       }
     }
 
-    // 驗證密碼
+    // 檢查 password 欄位
     if (empty($_POST["password"])) {
       $passwordErr = "Password is required";
       $valid = false;
@@ -139,23 +136,42 @@
       $password = test_input($_POST["password"]);
     }
 
-    // 如果所有欄位有效，檢查使用者是否存在
+    // 檢查 phone 欄位
+    if (empty($_POST["phone"])) {
+      $phoneErr = "Phone is required";
+      $valid = false;
+    } else {
+      $phone = test_input($_POST["phone"]);
+      if (!preg_match("/^[0-9]*$/", $phone)) {
+        $phoneErr = "Only numbers allowed";
+        $valid = false;
+      }
+    }
+
+    // 資料驗證通過，執行 SQL 操作
     if ($valid) {
-      $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 姓名 = ? AND 密碼 = ?");
-      $stmt->bind_param("ss", $name, $password);
+      $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 電話 = ?");
+      $stmt->bind_param("s", $phone);
       $stmt->execute();
       $result = $stmt->get_result();
 
       if ($result->num_rows > 0) {
-        header("Location: http://localhost/Chiikawa_Shop/");
-        exit(); // 確保後續代碼不會被執行
+        $phoneErr = "This phone number is already registered.";
       } else {
-        echo "<h3>Invalid name or password. Please try again.</h3>";
+        // 如果不存在，插入新資料
+        $stmt = $conn->prepare("INSERT INTO 會員 (帳號, 電話, 密碼) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $name, $phone, $password);
+        if ($stmt->execute()) {
+          echo "<h3>Registration successful! Welcome, " . htmlspecialchars($name) . "!</h3>";
+        } else {
+          echo "<h3>Error inserting record: " . htmlspecialchars($stmt->error) . "</h3>";
+        }
       }
       $stmt->close();
     }
   }
 
+  // 輔助函式
   function test_input($data)
   {
     $data = trim($data);
@@ -168,34 +184,41 @@
   ?>
 
   <div class="system_name">
-    <h1>Log In</h1>
+    <h1>Sign Up</h1>
   </div>
 
-  <div class="login_page">
+  <div class="signup_page">
 
-    <div id="frm">
-      <div class="login">
+    <div id="frm2">
+      <div class="signup">
 
         <form name="f1" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="return validation()"
           method="POST">
           <p>
-            <br>
-            <input type="text" name="name" placeholder="Name" />
+            <input type="text" id="name" name="name" placeholder="Name" />
             <span class="error"><?php echo $nameErr; ?></span>
           </p>
           <p>
-            <br>
-            <input type="password" name="password" placeholder="Password" />
+            <input type="password" id="password" name="password" placeholder="Password" />
             <span class="error"><?php echo $passwordErr; ?></span>
+          </p>
+          <p>
+            <input type="text" id="phone" name="phone" placeholder="Phone Number" />
+            <span class="error"><?php echo $phoneErr; ?></span>
           </p>
           <p>
             <input type="submit" id="btn" value="Sign Up" />
           </p>
         </form>
-        <h5><a href="signup">尚未註冊</a></h5>
+        <h5 onclick="show_hide()"><a href="http://localhost/Chiikawa_Shop/login">登入帳號</a></h5>
+
       </div>
     </div>
   </div>
+
+
+
+
   </div>
 
 

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<!-- 到時候新增商品的時候，應該會多一個params的變數導到不同的商品 -->
 <?php
 $servername = "localhost";
 $username = "root";
@@ -43,7 +43,4 @@ $price = 0;
 
 
 ?>
-=======
-<!-- 到時候新增商品的時候，應該會多一個params的變數導到不同的商品 -->
->>>>>>> e783dd2fe242ef14a48ee2f023002756fbaa9ac1
 <h1>product <?php echo $params[0]; ?></h1>

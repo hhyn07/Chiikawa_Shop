@@ -19,6 +19,10 @@ $routes = [
     'file' => 'pages/login.php',
     'title' => 'Chiikawa Shop｜Login'
   ],
+  'signup' => [
+    'file' => 'pages/signup.php',
+    'title' => 'Chiikawa Shop｜Signup'
+  ],
   'product/list' => [
     'file' => 'pages/product_list.php',
     'title' => 'Chiikawa Shop｜Product List'
@@ -27,7 +31,6 @@ $routes = [
     'file' => 'pages/product_view.php',
     'title' => 'Chiikawa Shop｜Product Details'
   ],
-
   '404' => [
     'file' => 'pages/404.php',
     'title' => 'Chiikawa Shop｜404 - 頁面不存在'
@@ -54,7 +57,7 @@ $navbar = 'components/navbar.php';
 $footer = 'components/footer.php';
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="zh-hant">
 
 <head>
   <meta charset="utf-8">
