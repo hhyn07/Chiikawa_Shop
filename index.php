@@ -42,14 +42,21 @@ function matchRoute($relativePath, $routes)
 {
   foreach ($routes as $pattern => $route) {
     if (preg_match("#^$pattern$#", $relativePath, $matches)) {
+      $reg_expr_match = array_slice($matches, 1);
       return [
         'file' => $route['file'],
         'title' => $route['title'],
-        'params' => array_slice($matches, 1)
+        'params' => $reg_expr_match
       ];
     }
   }
-  return $routes['404'];
+
+  // 如果未匹配到任何路由，返回 404 路由並設置默認空參數
+  return [
+    'file' => $routes['404']['file'],
+    'title' => $routes['404']['title'],
+    'params' => []
+  ];
 }
 
 // 執行路由匹配
