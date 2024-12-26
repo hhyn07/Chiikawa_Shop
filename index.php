@@ -1,5 +1,7 @@
 <!-- 不用動 -->
 <?php
+session_start();
+
 $root = "/Chiikawa_Shop/";
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (!str_starts_with($request, $root)) {
@@ -31,6 +33,11 @@ $routes = [
     'file' => 'pages/product_view.php',
     'title' => 'Chiikawa Shop｜Product Details'
   ],
+  's/login' => [
+    'file' => 'controller/login.php',
+    'title' => 'Chiikawa Shop｜login'
+  ],
+
   '404' => [
     'file' => 'pages/404.php',
     'title' => 'Chiikawa Shop｜404 - 頁面不存在'
@@ -42,11 +49,10 @@ function matchRoute($relativePath, $routes)
 {
   foreach ($routes as $pattern => $route) {
     if (preg_match("#^$pattern$#", $relativePath, $matches)) {
-      $reg_expr_match = array_slice($matches, 1);
       return [
         'file' => $route['file'],
         'title' => $route['title'],
-        'params' => $reg_expr_match
+        'params' => array_slice($matches, 1)
       ];
     }
   }
