@@ -68,10 +68,10 @@ $footer = 'components/footer.php';
 
   <main>
     <?php
-      $routeMatch = matchRoute($relativePath, $routes);
-      $params = $routeMatch['params'];
-      include $routeMatch['file'];
-      $title = $routeMatch['title'];
+    $routeMatch = matchRoute($relativePath, $routes);
+    $params = $routeMatch['params'];
+    include $routeMatch['file'];
+    $title = $routeMatch['title'];
     ?>
   </main>
 
