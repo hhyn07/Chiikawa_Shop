@@ -43,9 +43,6 @@
     top: 100px;
     text-align: center;
   }
-
-
-
   #btn {
     background: #cbd5e1;
     padding: 7px;
@@ -104,7 +101,7 @@
       <form name="f1" action="/Chiikawa_Shop/s/login" onsubmit="return validation()" method="POST">
         <p>
           <br>
-          <input type="text" name="name" placeholder="Name" />
+          <input type="text" name="name" placeholder="Account" />
         </p>
         <p>
           <br>
@@ -138,7 +135,7 @@
       return false;
     }
 
-    if (!/^[a-zA-Z-' ]*$/.test(name)) {
+    if (!/^[a-zA-Z0-9-' ]*$/.test(name)) {
       alert("Invalid name format");
       return false;
     }

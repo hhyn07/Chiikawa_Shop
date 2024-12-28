@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // 驗證姓名
   if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
+    $nameErr = "account is required";
     $valid = false;
   } else {
     $name = test_input($_POST["name"]);
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // 如果所有欄位有效，檢查使用者是否存在
   if ($valid) {
-    $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 姓名 = ? AND 密碼 = ?");
+    $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 帳號 = ? AND 密碼 = ?");
     $stmt->bind_param("ss", $name, $password);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -57,3 +57,4 @@ function test_input($data)
 }
 
 $conn->close();
+?>

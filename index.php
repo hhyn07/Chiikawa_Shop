@@ -37,7 +37,10 @@ $routes = [
     'file' => 'controller/login.php',
     'title' => 'Chiikawa Shop｜login'
   ],
-
+  's/signup' => [
+    'file' => 'controller/signup.php',
+    'title' => 'Chiikawa Shop｜signup'
+  ],
   '404' => [
     'file' => 'pages/404.php',
     'title' => 'Chiikawa Shop｜404 - 頁面不存在'
