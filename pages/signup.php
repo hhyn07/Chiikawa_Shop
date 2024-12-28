@@ -124,7 +124,7 @@
           <input type="submit" id="btn" value="Sign Up" />
         </p>
       </form>
-      <h5 onclick="show_hide()"><a href="http://localhost/Chiikawa_Shop/s/login">登入帳號</a></h5>
+      <h5 onclick="show_hide()"><a href="http://localhost/Chiikawa_Shop/login">登入帳號</a></h5>
 
     </div>
   </div>

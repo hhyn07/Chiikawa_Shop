@@ -37,6 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+      $user = $result->fetch_assoc(); // 獲取會員的數據
+      $_SESSION['user_id'] = $user['會員編號'];
+      $_SESSION['user_account'] = $user['帳號'];
       header("Location: /Chiikawa_Shop");
       exit; // 確保後續代碼不會被執行
     } else {

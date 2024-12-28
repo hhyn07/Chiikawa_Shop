@@ -21,9 +21,17 @@ $routes = [
     'file' => 'pages/login.php',
     'title' => 'Chiikawa Shop｜Login'
   ],
+  'logout' => [
+    'file' => 'pages/logout.php',
+    'title' => 'Chiikawa Shop｜Logout'
+  ],
   'signup' => [
     'file' => 'pages/signup.php',
     'title' => 'Chiikawa Shop｜Signup'
+  ],
+  'profile/(\d+)' => [
+    'file' => 'pages/signup.php',
+    'title' => 'Chiikawa Shop｜Profile'
   ],
   'product/list' => [
     'file' => 'pages/product_list.php',

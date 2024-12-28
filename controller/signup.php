@@ -61,6 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sss", $name, $phone, $password);
             if ($stmt->execute()) {
             echo "<h3>Registration successful! Welcome, " . htmlspecialchars($name) . "!</h3>";
+            ?>
+            <h5 onclick="show_hide()"><a href="http://localhost/Chiikawa_Shop/login">登入帳號</a></h5>
+            <?php
             } else {
             echo "<h3>Error inserting record: " . htmlspecialchars($stmt->error) . "</h3>";
             }
