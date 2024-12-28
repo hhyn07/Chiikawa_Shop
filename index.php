@@ -21,9 +21,17 @@ $routes = [
     'file' => 'pages/login.php',
     'title' => 'Chiikawa Shop｜Login'
   ],
+  'logout' => [
+    'file' => 'pages/logout.php',
+    'title' => 'Chiikawa Shop｜Logout'
+  ],
   'signup' => [
     'file' => 'pages/signup.php',
     'title' => 'Chiikawa Shop｜Signup'
+  ],
+  'profile/(\d+)' => [
+    'file' => 'pages/signup.php',
+    'title' => 'Chiikawa Shop｜Profile'
   ],
   'product/list' => [
     'file' => 'pages/product_list.php',
@@ -37,7 +45,10 @@ $routes = [
     'file' => 'controller/login.php',
     'title' => 'Chiikawa Shop｜login'
   ],
-
+  's/signup' => [
+    'file' => 'controller/signup.php',
+    'title' => 'Chiikawa Shop｜signup'
+  ],
   '404' => [
     'file' => 'pages/404.php',
     'title' => 'Chiikawa Shop｜404 - 頁面不存在'

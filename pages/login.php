@@ -43,9 +43,6 @@
     top: 100px;
     text-align: center;
   }
-
-
-
   #btn {
     background: #cbd5e1;
     padding: 7px;
@@ -104,7 +101,7 @@
       <form name="f1" action="/Chiikawa_Shop/s/login" onsubmit="return validation()" method="POST">
         <p>
           <br>
-          <input type="text" name="name" placeholder="Name" />
+          <input type="text" name="name" placeholder="Account" />
         </p>
         <p>
           <br>
@@ -112,12 +109,14 @@
         </p>
         <span class="error" style="color: red;">
           <?php
-          if (isset($_SESSION["login_error"]))
-            echo $_SESSION["login_error"];
+            if (isset($_SESSION['login_error'])) {
+              echo $_SESSION['login_error'];
+              unset($_SESSION['login_error']);
+            }
           ?>
         </span>
         <p>
-          <input type="submit" id="btn" value="Sign Up" />
+          <input type="submit" id="btn" value="Login" />
         </p>
       </form>
       <h5><a href="signup">尚未註冊</a></h5>
@@ -138,7 +137,7 @@
       return false;
     }
 
-    if (!/^[a-zA-Z-' ]*$/.test(name)) {
+    if (!/^[a-zA-Z0-9-' ]*$/.test(name)) {
       alert("Invalid name format");
       return false;
     }

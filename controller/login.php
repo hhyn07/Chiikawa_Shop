@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // 驗證姓名
   if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
+    $nameErr = "account is required";
     $valid = false;
   } else {
     $name = test_input($_POST["name"]);
@@ -31,12 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // 如果所有欄位有效，檢查使用者是否存在
   if ($valid) {
-    $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 姓名 = ? AND 密碼 = ?");
+    $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 帳號 = ? AND 密碼 = ?");
     $stmt->bind_param("ss", $name, $password);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+      $user = $result->fetch_assoc(); // 獲取會員的數據
+      $_SESSION['user_id'] = $user['會員編號'];
+      $_SESSION['user_account'] = $user['帳號'];
       header("Location: /Chiikawa_Shop");
       exit; // 確保後續代碼不會被執行
     } else {
@@ -57,3 +60,4 @@ function test_input($data)
 }
 
 $conn->close();
+?>

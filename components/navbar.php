@@ -18,12 +18,23 @@
       </ul>
       <!-- 右邊登入 -->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-            <h4><a class="nav-link active" href="<?php echo $root . 'signup'; ?>">註冊</a></h4>
-        </li>
-        <li class="nav-item">
-            <h4><a class="nav-link active" href="<?php echo $root . 'login'; ?>">登入</a></h4>
-        </li>
+        <?php
+        if (isset($_SESSION['user_account'])) {
+          ?>
+          <li class="nav-item"><h4>歡迎會員：<?php echo $_SESSION['user_account']; ?></h4></li>
+          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></h4></li>                    
+        <?php }
+        else{ ?>
+          <li class="nav-item">
+          <h4><a class="nav-link active" href="<?php echo $root . "signup"; ?>">註冊</a></h4>
+          </li>
+          <li class="nav-item">
+              <h4><a class="nav-link active" href="<?php echo $root . "login"; ?>">登入</a></h4>
+          </li>
+          <?php
+        }
+        ?>
+
       </ul>
     </div>
   </div>
