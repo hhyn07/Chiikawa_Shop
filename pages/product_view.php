@@ -31,6 +31,49 @@ if ($row) {
 }
 ?>
 <!-- 到時候新增商品的時候，應該會多一個params的變數導到不同的商品 -->
+<style>
+  .btn-custom {
+    background-color: #f992af;
+    /* 自訂背景顏色 */
+    border-color: #f992af;
+    /* 自訂邊框顏色 */
+    color: white;
+    /* 文字顏色 */
+  }
+
+  .btn-custom:hover {
+    background-color: #f6b4c7;
+    /* 滑鼠懸停時的背景顏色 */
+    border-color: #f6b4c7;
+    /* 滑鼠懸停時的邊框顏色 */
+    color: white;
+  }
+
+  .btn-custom:active {
+    background-color: #f992af !important;
+    /* 保持按鈕背景顏色不變 */
+    border-color: #f992af !important;
+    /* 保持按鈕邊框顏色不變 */
+    color: white !important;
+    /* 保持文字顏色不變 */
+    box-shadow: none !important;
+    /* 禁用焦點效果 */
+
+  }
+
+  .btn-custom:focus {
+    background-color: #f992af !important;
+    /* 保持按鈕背景顏色不變 */
+    border-color: #f992af !important;
+    /* 保持按鈕邊框顏色不變 */
+    color: white !important;
+    /* 保持文字顏色不變 */
+    box-shadow: none !important;
+    /* 禁用焦點效果 */
+  }
+</style>
+
+
 <div class="container my-5">
   <div class="row align-items-start">
     <!-- 圖片區 -->
@@ -42,10 +85,26 @@ if ($row) {
     <div class="col-md-6">
       <h2 class="display-4 text-dark"><?php echo htmlspecialchars($name); ?></h2>
       <p class="text-danger">NT$<?php echo htmlspecialchars($price); ?></p>
+      <button type="button" class="btn btn-custom" id="myButton"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+        加入購物車
+      </button>
       <p class="text-danger">現庫存剩下 <?php echo htmlspecialchars($inventory); ?> 件</p>
       <p class="text-muted"><?php echo htmlspecialchars($description); ?></p>
+      <p id="message" class="mt-3 text-muted"></p>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // 取得按鈕和訊息顯示區域
+  const button = document.getElementById('myButton');
+  const message = document.getElementById('message');
+
+  // 為按鈕綁定點擊事件
+  button.addEventListener('click', function () {
+    // 每次點擊時更新訊息
+    message.textContent = "已加入購物車";
+  });
+</script>
