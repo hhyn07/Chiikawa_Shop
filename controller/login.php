@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 帳號 = ? AND 密碼 = ?");
     $stmt->bind_param("ss", $name, $password);
     $stmt->execute();
-    $stmt->close();
+    
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
@@ -48,8 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       header("Location: /Chiikawa_Shop/login");
       exit; // 確保後續代碼不會被執行
     }
+    $stmt->close();
   } else {
-    $_SESSION['login_error'] = "帳號或密碼無效";
+    $_SESSION['space_error'] = "填寫欄位不可為空";
     header("Location: /Chiikawa_Shop/login");
     exit;
   }

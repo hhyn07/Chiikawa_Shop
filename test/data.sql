@@ -99,18 +99,18 @@ CREATE TABLE `購物車` (
 --
 
 --
--- 資料表索引 `商品`
---
-ALTER TABLE `商品`
-  ADD PRIMARY KEY (`商品編號`),
-  ADD KEY `商品_ibfk_1` (`會員編號`);
-
---
 -- 資料表索引 `會員`
 --
 ALTER TABLE `會員`
   ADD PRIMARY KEY (`會員編號`),
   ADD KEY `idx_會員_姓名` (`姓名`,`電話`,`電郵`);
+
+--
+-- 資料表索引 `商品`
+--
+ALTER TABLE `商品`
+  ADD PRIMARY KEY (`商品編號`),
+  ADD KEY `商品_ibfk_1` (`會員編號`);
 
 --
 -- 資料表索引 `訂單`

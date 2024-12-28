@@ -113,6 +113,10 @@
               echo $_SESSION['login_error'];
               unset($_SESSION['login_error']);
             }
+            if (isset($_SESSION['space_error'])) {
+              echo $_SESSION['space_error'];
+              unset($_SESSION['space_error']);
+            }
           ?>
         </span>
         <p>

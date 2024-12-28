@@ -7,6 +7,9 @@
       <!-- 左侧导航 -->
       <ul class="navbar-nav">
         <li class="nav-item me-3">
+            <h4><a class="nav-link active" href="<?php echo $root;?>">精選推薦</a></h4>
+        </li>
+        <li class="nav-item me-3">
             <h4><a class="nav-link active" href="<?php echo $root . 'product/list'; ?>">商品清單</a></h4>
         </li>
         <li class="nav-item me-3">
@@ -22,6 +25,8 @@
         if (isset($_SESSION['user_account'])) {
           ?>
           <li class="nav-item"><h4>歡迎會員：<?php echo $_SESSION['user_account']; ?></h4></li>
+          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "cart/".$_SESSION['user_id']; ?>">購物車</a></h4></li>                    
+          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "profile/".$_SESSION['user_id']; ?>">個人資料</a></h4></li>
           <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></h4></li>                    
         <?php }
         else{ ?>
