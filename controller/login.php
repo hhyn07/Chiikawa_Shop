@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $valid = true;
 
   // 驗證姓名
-  if (empty($_POST["name"])) {
+  if (empty($_POST["name"]) || trim($_POST["name"]) == "") {
     $nameErr = "account is required";
     $valid = false;
   } else {
@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("SELECT * FROM 會員 WHERE 帳號 = ? AND 密碼 = ?");
     $stmt->bind_param("ss", $name, $password);
     $stmt->execute();
+    $stmt->close();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
@@ -47,8 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       header("Location: /Chiikawa_Shop/login");
       exit; // 確保後續代碼不會被執行
     }
+  } else {
+    $_SESSION['login_error'] = "帳號或密碼無效";
+    header("Location: /Chiikawa_Shop/login");
+    exit;
   }
-  $stmt->close();
+
 }
 
 function test_input($data)
