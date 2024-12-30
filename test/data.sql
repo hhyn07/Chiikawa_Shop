@@ -71,7 +71,7 @@ CREATE TABLE `訂單` (
   `顧客姓名` char(100) DEFAULT NULL,
   `顧客電話` char(100) DEFAULT NULL,
   `顧客電郵` char(100) DEFAULT NULL,
-  `商品編號` char(100) DEFAULT NULL,
+  `商品編號` int(100) DEFAULT NULL,
   `商品名稱` char(100) DEFAULT NULL,
   `商品數量` char(100) DEFAULT NULL,
   `訂單狀態` char(100) DEFAULT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `訂單` (
 --
 
 CREATE TABLE `購物車` (
-  `商品編號` char(100) DEFAULT NULL,
+  `商品編號` int(100) DEFAULT NULL,
   `圖片` char(100) DEFAULT NULL,
   `會員編號` int(100) NOT NULL,
   `數量` char(100) DEFAULT NULL,
@@ -126,7 +126,7 @@ ALTER TABLE `訂單`
 -- 資料表索引 `購物車`
 --
 ALTER TABLE `購物車`
-  ADD PRIMARY KEY (`會員編號`),
+  ADD PRIMARY KEY (`會員編號`, `商品編號`),
   ADD KEY `購物車_商品編號_fk` (`商品編號`);
 
 --

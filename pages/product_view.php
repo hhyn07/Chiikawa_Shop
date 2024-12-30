@@ -85,10 +85,11 @@ if ($row) {
     <div class="col-md-6">
       <h2 class="display-4 text-dark"><?php echo htmlspecialchars($name); ?></h2>
       <p class="text-danger">NT$<?php echo htmlspecialchars($price); ?></p>
-      <button type="button" class="btn btn-custom" id="myButton"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-        加入購物車
-      </button>
+      <form id="addToCartForm" action="/Chiikawa_Shop/controller/shopping_cart.php" method="POST">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+        <button type="submit" id="myButton" class="btn btn-custom">加入購物車</button>
+      </form>
+      <p id="message" class="mt-3 text-muted"></p>
       <p class="text-danger">現庫存剩下 <?php echo htmlspecialchars($inventory); ?> 件</p>
       <p class="text-muted"><?php echo htmlspecialchars($description); ?></p>
       <p id="message" class="mt-3 text-muted"></p>
@@ -97,14 +98,11 @@ if ($row) {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // 取得按鈕和訊息顯示區域
-  const button = document.getElementById('myButton');
-  const message = document.getElementById('message');
-
-  // 為按鈕綁定點擊事件
-  button.addEventListener('click', function () {
-    // 每次點擊時更新訊息
-    message.textContent = "已加入購物車";
-  });
-</script>
+<?php
+if (isset($_SESSION['cart_message'])) {
+    echo '<div class="alert alert-success" role="alert">'
+        . htmlspecialchars($_SESSION['cart_message']) .
+        '</div>';
+    unset($_SESSION['cart_message']); // 顯示後清除訊息
+}
+?>

@@ -19,10 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid = false;
     } else {
     $name = test_input($_POST["name"]);
-    #if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-    #    $nameErr = "Only letters and white space allowed";
-    #    $valid = false;
-    #}
     }
 
     // 檢查 password 欄位
@@ -39,10 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid = false;
     } else {
     $phone = test_input($_POST["phone"]);
-    #if (!preg_match("/^[0-9]*$/", $phone)) {
-    #    $phoneErr = "Only numbers allowed";
-    #    $valid = false;
-    #}
     }
 
     // 資料驗證通過，執行 SQL 操作
@@ -54,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $_SESSION['signup_error'] = "電話號碼已被註冊";
-            #$phoneErr = "This phone number is already registered.";
         } else {
             // 如果不存在，插入新資料
             $stmt = $conn->prepare("INSERT INTO 會員 (帳號, 電話, 密碼) VALUES (?, ?, ?)");
