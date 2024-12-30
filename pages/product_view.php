@@ -41,12 +41,14 @@ if ($row) {
 
       <!-- 使用 flex 排列，並將按鈕分配在左右兩邊 -->
       <div class="d-flex justify-content-between align-items-center" style="gap: 10px;">
-        <!-- 加入購物車按鈕  -->
-        <button type="button" class="btn btn-custom" id="add-to-cart-btn"
-          style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-          加入購物車
-        </button>
-        <!-- 商品數量選取區域  -->
+        <!-- 加入購物車按鈕 -->
+        <form id="addToCartForm" action="/Chiikawa_Shop/controller/shopping_cart.php" method="POST">
+          <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+          <input type="hidden" name="quantity" id="quantity-input" value="<?php echo htmlspecialchars($quantity); ?>"> <!-- 設置數量輸入字段 -->
+          <button type="submit" id="myButton" class="btn btn-custom">加入購物車</button>
+        </form>
+
+        <!-- 商品數量選取區域 -->
         <div class="d-flex align-items-center" style="gap: 10px;">
           <button type="button" class="btn btn-light btn-sm" id="decrease"
             style="background-color: #f992af; border: none; color: white;">−</button>
@@ -64,19 +66,24 @@ if ($row) {
 </div>
 
 <script>
-  let quantity = 1;
+  let quantity = 1; // 初始數量為1
   const inventory = <?php echo htmlspecialchars($inventory); ?>;
 
   const decreaseBtn = document.getElementById('decrease');
   const increaseBtn = document.getElementById('increase');
   const quantityDisplay = document.getElementById('quantity-display');
-  const addToCartBtn = document.getElementById('add-to-cart-btn');
+  const quantityInput = document.getElementById('quantity-input');
   const message = document.getElementById('message');
 
   // 增加數量
   increaseBtn.addEventListener('click', function () {
-    if (quantity < inventory) quantity += 1;
-    quantityDisplay.textContent = quantity;
+    if (quantity < inventory) {
+      quantity += 1;
+      quantityDisplay.textContent = quantity;
+      quantityInput.value = quantity; // 更新數量隱藏域
+    } else {
+      message.textContent = "數量超過庫存";
+    }
   });
 
   // 減少數量
@@ -84,14 +91,11 @@ if ($row) {
     if (quantity > 1) {
       quantity -= 1;
       quantityDisplay.textContent = quantity;
+      quantityInput.value = quantity; // 更新數量隱藏域
     }
   });
-
-  // 加入購物車處理
-  addToCartBtn.addEventListener('click', function () {
-    message.textContent = "已加入購物車 " + quantity + " 件";
-  });
 </script>
+
 
 <style>
   .btn-custom {
@@ -133,32 +137,6 @@ if ($row) {
     /* 禁用焦點效果 */
   }
 </style>
-
-
-<div class="container my-5">
-  <div class="row align-items-start">
-    <!-- 圖片區 -->
-    <div class="col-md-6">
-      <img src="<?php echo htmlspecialchars("/Chiikawa_Shop" . $image_path); ?>" alt="Product Image" class="img-fluid"
-        style="width: 400px; height: auto;">
-    </div>
-    <!-- 文字區 -->
-    <div class="col-md-6">
-      <h2 class="display-4 text-dark"><?php echo htmlspecialchars($name); ?></h2>
-      <p class="text-danger">NT$<?php echo htmlspecialchars($price); ?></p>
-      <form id="addToCartForm" action="/Chiikawa_Shop/controller/shopping_cart.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-        <button type="submit" id="myButton" class="btn btn-custom">加入購物車</button>
-      </form>
-      <p id="message" class="mt-3 text-muted"></p>
-      <p class="text-danger">現庫存剩下 <?php echo htmlspecialchars($inventory); ?> 件</p>
-      <p class="text-muted"><?php echo htmlspecialchars($description); ?></p>
-      <p id="message" class="mt-3 text-muted"></p>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <?php
 if (isset($_SESSION['cart_message'])) {
     echo '<div class="alert alert-success" role="alert">'
