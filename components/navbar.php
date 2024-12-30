@@ -13,7 +13,7 @@
             <h4><a class="nav-link active" href="<?php echo $root . 'product/list'; ?>">商品清單</a></h4>
         </li>
         <li class="nav-item me-3">
-            <h4><a class="nav-link" href="<?php echo $root . 'product/view/1';?>">Features</a></h4>
+            <h4><a class="nav-link" href="<?php echo $root . '#';?>">Features</a></h4>
         </li>
         <li class="nav-item me-3">
             <h4><a class="nav-link" href="#">Pricing</a></h4>

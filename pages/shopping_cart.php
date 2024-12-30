@@ -25,7 +25,8 @@ if ($row) {
     $sql = "SELECT * FROM `購物車` WHERE `會員編號`= $id";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()){
-        echo "<tr><td>" . $row["商品編號"]. "</td><td>" . $row["圖片"]. "</td><td>" . $row["數量"]. "</td><td>" . $row["價格"]. "</td></tr>";
+        echo "<tr><td>" . $row["商品編號"]. "</td><td>"; ?> <img src="<?php echo htmlspecialchars("/Chiikawa_Shop" . $row["圖片"]); ?>" alt="Product Image" class="img-fluid"
+        style="width: 200px; height: auto;">  <?php echo "</td><td>" . $row["數量"]. "</td><td>" . $row["數量"]*$row["價格"]. "</td></tr>";
     }
     echo "</table>";
 } else {
