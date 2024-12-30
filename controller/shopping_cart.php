@@ -6,6 +6,11 @@ $conn = db_connect();
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$user_id = $_SESSION['user_id'] ?? null; // 如果沒有找到 session 變數，則設為 null
+if ($user_id === null) {
+    // 處理錯誤，可能是用戶未登入
+    die("請先登入！");
+}
 
 // 檢查是否是 POST 請求
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // 設置加入購物車的訊息
-        $_SESSION['cart_message'] = $quantity."件商品已成功加入購物車！";
+        $_SESSION['cart_message'] = $quantity . "件商品已成功加入購物車！";
 
         // 導回之前的商品頁面
         $referer = $_SERVER['HTTP_REFERER'] ?? '/Chiikawa_Shop';
@@ -54,4 +59,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "錯誤：請求方法無效！";
 }
+$conn->close();
 ?>
