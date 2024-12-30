@@ -10,6 +10,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+// 保證 quantity 為正整數 (預設為 1 )
+$quantity = isset($_POST['quantity']) && is_numeric($_POST['quantity']) ? max(1, (int) $_POST['quantity']) : 1;
+
+$id = (int) $params[0];
 
 $name = "";
 $price = 0;
@@ -44,7 +48,8 @@ if ($row) {
         <!-- 加入購物車按鈕 -->
         <form id="addToCartForm" action="/Chiikawa_Shop/controller/shopping_cart.php" method="POST">
           <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-          <input type="hidden" name="quantity" id="quantity-input" value="<?php echo htmlspecialchars($quantity); ?>"> <!-- 設置數量輸入字段 -->
+          <input type="hidden" name="quantity" id="quantity-input" value="<?php echo htmlspecialchars($quantity); ?>">
+          <!-- 設置數量輸入字段 -->
           <button type="submit" id="myButton" class="btn btn-custom">加入購物車</button>
         </form>
 
@@ -139,9 +144,9 @@ if ($row) {
 </style>
 <?php
 if (isset($_SESSION['cart_message'])) {
-    echo '<div class="alert alert-success" role="alert">'
-        . htmlspecialchars($_SESSION['cart_message']) .
-        '</div>';
-    unset($_SESSION['cart_message']); // 顯示後清除訊息
+  echo '<div class="alert alert-success" role="alert">'
+    . htmlspecialchars($_SESSION['cart_message']) .
+    '</div>';
+  unset($_SESSION['cart_message']); // 顯示後清除訊息
 }
 ?>
