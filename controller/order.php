@@ -1,10 +1,12 @@
 <?php
+include_once("../includes/databases.php");
 // 資料庫查詢獲取 name 和 price
 // Create connection
 $conn = db_connect();
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+echo 'db 連線成功';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['shipping_method'])) {

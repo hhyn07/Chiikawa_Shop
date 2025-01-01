@@ -1,5 +1,5 @@
 <?php
-include_once("includes/databases.php");
+include_once("../includes/databases.php");
 
 $conn = db_connect();
 if ($conn->connect_error) {
