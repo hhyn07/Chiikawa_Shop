@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 // 定義變數
 $nameErr = $passwordErr = $phoneErr = "";
 $name = $password = $phone = "";
-
+$permissions = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid = true;
 
@@ -48,8 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['signup_error'] = "電話號碼已被註冊";
         } else {
             // 如果不存在，插入新資料
-            $stmt = $conn->prepare("INSERT INTO 會員 (帳號, 電話, 密碼) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $name, $phone, $password);
+            
+            $stmt = $conn->prepare("INSERT INTO 會員 (帳號, 電話, 密碼, 管理員) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $name, $phone, $password, $permissions);
             if ($stmt->execute()) {
             echo "<h3>Registration successful! Welcome, " . htmlspecialchars($name) . "!</h3>";
             ?>

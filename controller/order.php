@@ -14,10 +14,18 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['shipping_method'])) {
         $id = $_SESSION['user_id'];
-        $sql = "SELECT * FROM `購物車` WHERE `會員編號`= $id";
-        $result = $conn->query($sql);
+        $sql_1 = "SELECT * FROM `購物車` WHERE `會員編號`= $id";
+        $result_1 = $conn->query($sql_1);
+        $goods_name = "";
+        $goods_num = "";
         $price = 0;
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result_1->fetch_assoc()) {
+            $goods_id = $row["商品編號"];
+            $sql_2 = "SELECT * FROM `商品` WHERE `商品編號`= $goods_id";
+            $result_2 = $conn->query($sql_2);
+            $row_2 = $result_2->fetch_assoc();
+            $goods_name .= $row_2["商品名稱"] . "<br>";
+            $goods_num .= $row["數量"] . "<br>";
             $price += $row["數量"] * $row["價格"];
         }
         $zipcode = $_POST['zipcode'];
@@ -30,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fee = $price * 0.1;
         $total = $price * 1.1;
 
-        if ($result->num_rows > 0) {
-            $stmt = $conn->prepare("INSERT INTO 訂單 (郵遞區號, 運費, 總價格, 運送方式, 運送國家, 運送地址, 顧客編號, 顧客姓名, 顧客電話, 顧客電郵) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("siisssisss", $zipcode, $fee, $total, $shipping_method, $country, $address, $id, $name, $phone, $email);
-
+        if ($result_1->num_rows > 0) {
+            $stmt = $conn->prepare("INSERT INTO 訂單 (郵遞區號, 運費, 總價格, 運送方式, 運送國家, 運送地址, 顧客編號, 顧客姓名, 顧客電話, 顧客電郵, 商品名稱, 商品數量) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("siisssisssss", $zipcode, $fee, $total, $shipping_method, $country, $address, $id, $name, $phone, $email, $goods_name, $goods_num);
             if ($stmt->execute()) {
                 // 刪除購物車中該用戶的資料
                 $delete_sql = "DELETE FROM `購物車` WHERE `會員編號` = ?";

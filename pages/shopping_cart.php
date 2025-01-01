@@ -22,12 +22,10 @@ $row = $result->fetch_assoc();
 if ($row) {
     $sql = "SELECT * FROM `購物車` WHERE `會員編號`= $id";
     $result = $conn->query($sql);
-    if($row = $result->fetch_assoc()){
-    echo "<div class='table-container'>";
-    echo "<table>";
-    echo "<tr><th>商品</th><th>圖片</th><th>數量</th><th>價格</th></tr>";
-    
-    
+    if($result){
+        echo "<div class='table-container'>";
+        echo "<table>";
+        echo "<tr><th>商品</th><th>圖片</th><th>數量</th><th>價格</th></tr>";    
     while ($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["商品編號"]. "</td><td>"; ?> 
         <img src="<?php echo htmlspecialchars("/Chiikawa_Shop" . $row["圖片"]); ?>" alt="Product Image" class="img-fluid"

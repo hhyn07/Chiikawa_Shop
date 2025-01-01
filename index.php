@@ -33,9 +33,21 @@ $routes = [
     'file' => 'pages/shopping_cart.php',
     'title' => 'Chiikawa Shop｜Shopping Cart'
   ],
+  'order/update' => [
+    'file' => 'controller/order_update.php',
+    'title' => 'Chiikawa Shop｜Order Update'
+  ],
   'order/(\d+)' => [
     'file' => 'pages/order.php',
     'title' => 'Chiikawa Shop｜Order'
+  ],
+  'order/edit/(\d+)' => [
+    'file' => 'pages/order_edit.php',
+    'title' => 'Chiikawa Shop｜Order'
+  ],
+  'order_view/(\d+)' => [
+    'file' => 'pages/order_view.php',
+    'title' => 'Chiikawa Shop｜Order View'
   ],
   'order' => [
     'file' => 'pages/order.php',
