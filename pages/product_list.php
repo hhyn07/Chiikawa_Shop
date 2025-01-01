@@ -1,11 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "chiikawashop";
-
 // 創建資料庫連接
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = db_connect();
 
 // 檢查連接是否成功
 if ($conn->connect_error) {
@@ -19,8 +14,8 @@ $result = $conn->query($sql);
 // 如果有商品資料，則顯示
 if ($result->num_rows > 0) {
   // 開始顯示商品清單
-  echo '<div class="container my-5">';
-  echo '<div class="row">';
+  echo '<div class="container-sm my-5">';
+  echo '<div class="row g-4 d-flex align-items-stretch">';
 
   // 逐個顯示商品
   while ($row = $result->fetch_assoc()) {
@@ -31,21 +26,23 @@ if ($result->num_rows > 0) {
     $price = $row['價格'];
     $image_path = $row['圖片路徑'];
 
-    // 顯示商品的 card
-    echo '<div class="col-md-4 mb-4">';
-    echo '<div class="card" style="width: 18rem;">';
-    echo '<a href="/Chiikawa_Shop/product/view/' . htmlspecialchars($id) . '">';
-    echo '<img src="' . htmlspecialchars("/Chiikawa_Shop" . $image_path) . '" class="card-img-top " alt="商品圖片">';
-    echo '<div class="card-body">';
-    echo '<h5 class="card-title text-muted">' . htmlspecialchars($name) . '</h5>';
-    echo '<p class="card-text text-muted">NT$' . number_format($price) . '</p>';
-    echo '<a href="/Chiikawa_Shop/product/view/' . htmlspecialchars($id) . '" class="btn btn-custom">查看商品</a>';
-    echo '</div>';
-    echo '</a>';
-    echo '</div>';
-    echo '</div>';
+    ?>
+    <div class="col-xxl-3 col-md-4 col-sm-6 col-12">
+      <div class="card shadow-sm h-100 d-flex flex-column">
+        <a href="<?php echo '/Chiikawa_Shop/product/view/' . htmlspecialchars($id); ?>">
+          <div class="ratio ratio-4x3">
+            <img class="card-img-top object-fit-cover" alt="商品圖片" src="<?php echo htmlspecialchars("/Chiikawa_Shop" . $image_path); ?>">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-muted"><?php echo htmlspecialchars($name); ?></h5>
+            <p class="card-text text-muted mb-2">NT$<?php echo number_format($price); ?></p>
+            <a class="btn btn-custom mt-auto" href="/Chiikawa_Shop/product/view/<?php echo htmlspecialchars($id); ?>">查看商品</a>
+          </div>
+        </a>
+      </div>
+    </div>
+    <?php
   }
-
   echo '</div>';
   echo '</div>';
 } else {
@@ -54,7 +51,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-</script>
 
 <style>
   /* 字體樣式 */
