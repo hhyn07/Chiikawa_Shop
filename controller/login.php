@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
       $user = $result->fetch_assoc(); // 獲取會員的數據
+      $_SESSION['permission'] = $user['管理員'];
       $_SESSION['user_id'] = $user['會員編號'];
       $_SESSION['user_account'] = $user['帳號'];
       header("Location: /Chiikawa_Shop");

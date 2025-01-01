@@ -33,6 +33,22 @@ $routes = [
     'file' => 'pages/shopping_cart.php',
     'title' => 'Chiikawa Shop｜Shopping Cart'
   ],
+  'order/update' => [
+    'file' => 'controller/order_update.php',
+    'title' => 'Chiikawa Shop｜Order Update'
+  ],
+  'order/edit/(\d+)' => [
+    'file' => 'pages/order_edit.php',
+    'title' => 'Chiikawa Shop｜Order'
+  ],
+  'order_view/(\d+)' => [
+    'file' => 'pages/order_view.php',
+    'title' => 'Chiikawa Shop｜Order View'
+  ],
+  'order' => [
+    'file' => 'pages/order.php',
+    'title' => 'Chiikawa Shop｜Order'
+  ],
   'profile/(\d+)' => [
     'file' => 'pages/profile.php',
     'title' => 'Chiikawa Shop｜Profile'
@@ -52,6 +68,10 @@ $routes = [
   's/signup' => [
     'file' => 'controller/signup.php',
     'title' => 'Chiikawa Shop｜signup'
+  ],
+  'add' => [
+    'file' => 'pages/add_goods.php',
+    'title' => 'Chiikawa Shop｜Add Goods'
   ],
   '404' => [
     'file' => 'pages/404.php',
