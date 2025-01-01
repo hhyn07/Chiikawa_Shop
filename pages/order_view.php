@@ -27,7 +27,7 @@ if($_SESSION['permission']==0){
             while ($row = $result->fetch_assoc()) {
                 ?>
                 <div class="col col-sm-8 mx-auto">
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-header d-flex">
                             <span>訂單編號：</span>
                             <span class="ms-auto">訂單狀態：<?php echo $row["訂單狀態"];?></span>
