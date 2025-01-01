@@ -33,6 +33,14 @@ $routes = [
     'file' => 'pages/shopping_cart.php',
     'title' => 'Chiikawa Shop｜Shopping Cart'
   ],
+  'order/(\d+)' => [
+    'file' => 'pages/order.php',
+    'title' => 'Chiikawa Shop｜Order'
+  ],
+  'order' => [
+    'file' => 'pages/order.php',
+    'title' => 'Chiikawa Shop｜Order'
+  ],
   'profile/(\d+)' => [
     'file' => 'pages/profile.php',
     'title' => 'Chiikawa Shop｜Profile'

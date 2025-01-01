@@ -60,9 +60,9 @@ INSERT INTO `會員` (`帳號`, `密碼`, `會員編號`, `姓名`, `生日`, `�
 --
 
 CREATE TABLE `訂單` (
-  `訂單編號` char(100) NOT NULL,
-  `運費` char(100) DEFAULT NULL,
-  `總價格` char(100) DEFAULT NULL,
+  `訂單編號` 	int(100) NOT NULL,
+  `運費` 	int(100) DEFAULT NULL,
+  `總價格` 	int(100) DEFAULT NULL,
   `郵遞區號` char(100) DEFAULT NULL,
   `運送方式` char(100) DEFAULT NULL,
   `運送國家` char(100) DEFAULT NULL,
