@@ -1,13 +1,8 @@
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "chiikawashop";
-
 // 資料庫查詢獲取 name 和 price
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = db_connect();
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }

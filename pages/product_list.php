@@ -1,6 +1,4 @@
 <?php
-include_once('includes/databases.php');
-
 // 創建資料庫連接
 $conn = db_connect();
 
