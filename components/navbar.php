@@ -18,7 +18,7 @@
         <?php
         if (isset($_SESSION['user_account']) && $_SESSION['permission'] == 0) {
           ?>
-          <li class="nav-item h4">歡迎會員：<?php echo $_SESSION['user_account']; ?></li>
+          <li class="navbar-text h4">歡迎會員：<?php echo $_SESSION['user_account']; ?></li>
           <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "order_view/".$_SESSION['user_id']; ?>">我的訂單</a></li>                    
           <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "cart/".$_SESSION['user_id']; ?>">購物車</a></li>                    
           <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "profile/".$_SESSION['user_id']; ?>">個人資料</a></li>
