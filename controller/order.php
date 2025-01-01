@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once("../includes/databases.php");
 // 資料庫查詢獲取 name 和 price
 // Create connection
@@ -6,7 +7,6 @@ $conn = db_connect();
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-echo 'db 連線成功';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['shipping_method'])) {
@@ -62,65 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: /Chiikawa_Shop/cart/$id");
             exit;
         }
+    }else{
+        $_SESSION['order_fail'] = "沒有選擇運送方式";
+        header("Location: /Chiikawa_Shop/cart/$id");
+        exit;
     }
 }
-
+$conn->close();
 ?>
-<style>
-.table-container {
-    display: flex;
-    flex-direction: column; /* 垂直布局 */
-    justify-content: flex-start; /* 内容从顶部开始 */
-    align-items: center; /* 水平居中 */
-    height: 100vh;
-    padding-top: 20px;
-}
-
-table {
-    margin: 0;
-    border-collapse: collapse;
-    font-size: 18px;
-    table-layout: fixed;
-    width: 70%; /* 设置表格宽度 */
-    background-color: white;
-}
-
-table th {
-    background-color: #f992af;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 12px 15px;
-}
-
-table td {
-    padding: 12px 15px;
-    border: 1px solid #f99;
-    text-align: center;
-    color: #333;
-}
-
-table tr {
-    background-color: #ffe4e1;
-}
-
-form {
-    margin-top: 20px; /* 按钮与表格的间距 */
-}
-
-.btn-custom {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #f99;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-custom:hover {
-    background-color: #e76f8d;
-}
-
-</style>
