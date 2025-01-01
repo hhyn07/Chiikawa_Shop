@@ -64,7 +64,7 @@ if ($row) {
       </div>
 
       <p class="text-danger">現庫存剩下 <?php echo htmlspecialchars($inventory); ?> 件</p>
-      <p class="text-muted"><?php echo htmlspecialchars($description); ?></p>
+      <p class="text-muted"><?php echo nl2br($description); ?></p>
       <p id="message" class="mt-3 text-muted"></p>
     </div>
   </div>

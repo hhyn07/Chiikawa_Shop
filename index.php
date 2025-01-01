@@ -37,10 +37,6 @@ $routes = [
     'file' => 'controller/order_update.php',
     'title' => 'Chiikawa Shop｜Order Update'
   ],
-  'order/(\d+)' => [
-    'file' => 'pages/order.php',
-    'title' => 'Chiikawa Shop｜Order'
-  ],
   'order/edit/(\d+)' => [
     'file' => 'pages/order_edit.php',
     'title' => 'Chiikawa Shop｜Order'
@@ -72,6 +68,10 @@ $routes = [
   's/signup' => [
     'file' => 'controller/signup.php',
     'title' => 'Chiikawa Shop｜signup'
+  ],
+  'add' => [
+    'file' => 'pages/add_goods.php',
+    'title' => 'Chiikawa Shop｜Add Goods'
   ],
   '404' => [
     'file' => 'pages/404.php',
