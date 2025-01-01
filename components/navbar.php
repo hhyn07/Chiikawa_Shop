@@ -6,11 +6,11 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <!-- 左侧导航 -->
       <ul class="navbar-nav">
-        <li class="nav-item me-3">
-            <h4><a class="nav-link active" href="<?php echo $root;?>">精選推薦</a></h4>
+        <li class="nav-item h4">
+            <a class="nav-link active" href="<?php echo $root;?>">精選推薦</a>
         </li>
-        <li class="nav-item me-3">
-            <h4><a class="nav-link active" href="<?php echo $root . 'product/list'; ?>">商品清單</a></h4>
+        <li class="nav-item h4">
+            <a class="nav-link active" href="<?php echo $root . 'product/list'; ?>">商品清單</a>
         </li>
       </ul>
       <!-- 右邊登入 -->
@@ -18,30 +18,29 @@
         <?php
         if (isset($_SESSION['user_account']) && $_SESSION['permission'] == 0) {
           ?>
-          <li class="nav-item"><h4>歡迎會員：<?php echo $_SESSION['user_account']; ?></h4></li>
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "order_view/".$_SESSION['user_id']; ?>">我的訂單</a></h4></li>                    
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "cart/".$_SESSION['user_id']; ?>">購物車</a></h4></li>                    
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "profile/".$_SESSION['user_id']; ?>">個人資料</a></h4></li>
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></h4></li>                    
+          <li class="nav-item h4">歡迎會員：<?php echo $_SESSION['user_account']; ?></li>
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "order_view/".$_SESSION['user_id']; ?>">我的訂單</a></li>                    
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "cart/".$_SESSION['user_id']; ?>">購物車</a></li>                    
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "profile/".$_SESSION['user_id']; ?>">個人資料</a></li>
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></li>                    
         <?php }
         else if(isset($_SESSION['user_account']) && $_SESSION['permission'] == 1) {
           ?>
-          <li class="nav-item"><h4>歡迎管理員：<?php echo $_SESSION['user_account']; ?></h4></li>
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "order_view/".$_SESSION['user_id']; ?>">處理訂單</a></h4></li>                                  
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "add"?>">新增商品</a></h4></li>
-          <li class="nav-item"><h4><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></h4></li>                    
+          <li class="navbar-text h4">歡迎管理員：<?php echo $_SESSION['user_account']; ?></li>
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "order_view/".$_SESSION['user_id']; ?>">處理訂單</a></li>                                  
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "add"?>">新增商品</a></li>
+          <li class="nav-item h4"><a class="nav-link active" href="<?php echo $root . "logout"; ?>">登出</a></li>                    
         <?php }
         else{ ?>
-          <li class="nav-item">
-          <h4><a class="nav-link active" href="<?php echo $root . "signup"; ?>">註冊</a></h4>
+          <li class="nav-item h4">
+            <a class="nav-link active" href="<?php echo $root . "signup"; ?>">註冊</a>
           </li>
-          <li class="nav-item">
-              <h4><a class="nav-link active" href="<?php echo $root . "login"; ?>">登入</a></h4>
+          <li class="nav-item h4">
+            <a class="nav-link active" href="<?php echo $root . "login"; ?>">登入</a>
           </li>
           <?php
         }
         ?>
-
       </ul>
     </div>
   </div>
