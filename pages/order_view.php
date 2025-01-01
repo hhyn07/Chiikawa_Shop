@@ -19,26 +19,43 @@ if($_SESSION['permission']==0){
     if ($row) {
         $sql = "SELECT * FROM `訂單` WHERE `顧客編號`= $id";
         $result = $conn->query($sql);
-        if($row){
-        echo "<div class='table-container'>";
-        echo "<table>";
-        echo "<tr><th>總價格</th><th>商品名稱</th><th>商品數量</th><th>訂單狀態</th><th>付款狀態</th><th>下單日期</th></tr>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["總價格"] . "</td>";
-            echo "<td>" . $row["商品名稱"] . "</td>";
-            echo "<td>" . $row["商品數量"] . "</td>";
-            echo "<td>" . $row["訂單狀態"] . "</td>";
-            echo "<td>" . $row["付款狀態"] . "</td>";
-            echo "<td>" . $row["下單日期"] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
         ?>
-        <form id="order" action="/Chiikawa_Shop/order" method="POST" style="margin-top: 20px;">
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-            <button type="submit" id="myButton" class="btn btn-custom">結帳</button>
-        </form>
+        <div class="container-sm my-5">
+            <div class="row  g-4">
+        <?php
+        if($row){
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <div class="col col-sm-8 mx-auto">
+                    <div class="card">
+                        <div class="card-header d-flex">
+                            <span>訂單編號：</span>
+                            <span class="ms-auto">訂單狀態：<?php echo $row["訂單狀態"];?></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <!-- <div class="ratio ratio-1x1">
+                                    <img src="" alt="">
+                                </div> -->
+                                <span>
+                                    商品名稱：<br><?php echo $row["商品名稱"]; ?><br>
+                                    商品數量：<?php echo $row["商品數量"]; ?><br>
+                                </span>
+                                <span class="ms-auto my-auto">項目金額：<?php echo $row["總價格"];?></span>
+                            </div>
+                            <!-- <hr> -->
+                        </div>
+                        <div class="card-footer d-flex">
+                            <span>訂購時間：<?php echo $row["下單日期"];?></span>
+                            <span class="ms-auto">總價格：<?php echo $row["總價格"];?></span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+                </div>
+            </div>
         </div>
         <?php
         }
