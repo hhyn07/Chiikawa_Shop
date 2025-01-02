@@ -37,10 +37,6 @@ $routes = [
     'file' => 'pages/order.php',
     'title' => 'Chiikawa Shop｜Order'
   ],
-  'profile/(\d+)' => [
-    'file' => 'pages/profile.php',
-    'title' => 'Chiikawa Shop｜Profile'
-  ],
   'product/list' => [
     'file' => 'pages/product_list.php',
     'title' => 'Chiikawa Shop｜Product List'

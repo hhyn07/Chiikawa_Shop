@@ -39,9 +39,9 @@ if($_SESSION['permission']==0){
                                 </div> -->
                                 <span>
                                     商品名稱：<br><?php echo $row["商品名稱"]; ?><br>
-                                    商品數量：<?php echo $row["商品數量"]; ?><br>
+                                    商品數量：<br><?php echo $row["商品數量"]; ?><br>
                                 </span>
-                                <span class="ms-auto my-auto">項目金額：<?php echo $row["總價格"];?></span>
+                                <span class="ms-auto my-auto">項目金額：<?php echo $row["總價格"]-$row["運費"];?></span>
                             </div>
                             <!-- <hr> -->
                         </div>
